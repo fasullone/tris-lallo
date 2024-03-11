@@ -48,6 +48,7 @@ export class AppComponent {
     const filtered = this.gamingTable.filter(x => !x.isClicked);
     if (filtered.length === 0) {
       console.log("il gioco è finito");
+      alert("PAREGGIO!")
       this.reset();
     }
     else {
@@ -81,7 +82,7 @@ export class AppComponent {
       win5.every(n => player1Moves.includes(n)) || win6.every(n => player1Moves.includes(n)) ||
       win7.every(n => player1Moves.includes(n)) || win8.every(n => player1Moves.includes(n))) {
         this.reset();
-        console.log('hai vinto');
+        alert('ha vinto player 1');
       }
  
       if(win1.every(n => player2Moves.includes(n)) || win2.every(n => player2Moves.includes(n)) ||
@@ -89,7 +90,7 @@ export class AppComponent {
       win5.every(n => player2Moves.includes(n)) || win6.every(n => player2Moves.includes(n)) ||
       win7.every(n => player2Moves.includes(n)) || win8.every(n => player2Moves.includes(n))) {
         this.reset();
-        console.log('hai vinto');
+        alert('ha vinto player 2');
       }
     });
   }
