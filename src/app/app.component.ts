@@ -95,7 +95,7 @@ export class AppComponent {
     });
 
     if (player1HasWon || player2HasWon) {
-      alert(` ${player1HasWon ? "fasullo" : "lallo"} ha vinto!`);
+      alert(` ${player1HasWon ? "fasullo" : "lallo"} ha vinto!!!`);
     }
   }
 
