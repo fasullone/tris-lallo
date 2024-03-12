@@ -17,9 +17,11 @@ import { FormsModule } from '@angular/forms';
 export class AppComponent {
   title = 'tris-lallo';
   showText: boolean = true;
-  showReset: boolean = false;
   isPlaying: boolean = false;
   currentPlayer: number = 1;
+  whichImages: number = 1;
+  player1Score: number = 0;
+  player2Score: number = 0;
   gamingTable: Cell[] = [];
 
   ngOnInit() {
@@ -28,28 +30,26 @@ export class AppComponent {
 
   play() {
     this.showText = false;
-    this.showReset = true;
     this.isPlaying = true;
   }
 
-  reset() {
+  resetMatch() {
     this.showText = true;
-    this.showReset = false;
     this.isPlaying = false;
+    this.currentPlayer = 1;
     this.buildGameArea();
   }
 
-
+  resetScore() {
+    this.player1Score = 0;
+    this.player2Score = 0;
+  }
 
   isFinishedGame() {
     const filtered = this.gamingTable.filter(x => !x.isClicked);
     if (filtered.length === 0) {
-      console.log("il gioco è finito");
       alert("PAREGGIO!")
-      this.reset();
-    }
-    else {
-      console.log("puoi continuare");
+      this.resetMatch();
     }
   }
 
@@ -70,11 +70,9 @@ export class AppComponent {
     this.gamingTable.forEach(cell => {
       if (cell.player === 1 && cell.isClicked) {
         player1Moves.push(cell.index);
-        console.log("player 1 moves ", player1Moves);
       }
       if (cell.player === 2 && cell.isClicked) {
         player2Moves.push(cell.index);
-        console.log("player 2 moves ", player2Moves);
       }
 
       if (win1.every(n => player1Moves.includes(n)) || win2.every(n => player1Moves.includes(n)) ||
@@ -82,7 +80,7 @@ export class AppComponent {
         win5.every(n => player1Moves.includes(n)) || win6.every(n => player1Moves.includes(n)) ||
         win7.every(n => player1Moves.includes(n)) || win8.every(n => player1Moves.includes(n))) {
         player1HasWon = true;
-        this.reset();
+        this.resetMatch();
       }
 
       if (win1.every(n => player2Moves.includes(n)) || win2.every(n => player2Moves.includes(n)) ||
@@ -90,25 +88,35 @@ export class AppComponent {
         win5.every(n => player2Moves.includes(n)) || win6.every(n => player2Moves.includes(n)) ||
         win7.every(n => player2Moves.includes(n)) || win8.every(n => player2Moves.includes(n))) {
         player2HasWon = true;
-        this.reset();
+        this.resetMatch();
       }
     });
 
     if (player1HasWon || player2HasWon) {
-      alert(` ${player1HasWon ? "fasullo" : "lallo"} ha vinto!!!`);
+      if (player1HasWon) {
+        this.player1Score++;
+      }
+      if (player2HasWon) {
+        this.player2Score++;
+      }
+      alert(` ${player1HasWon ? "Player 1" : "Player 2"} ha vinto!`);
     }
   }
 
   makeMove(cell: Cell) {
-
     cell.isClicked = true;
     cell.player = this.currentPlayer;
-    this.checkWinner();
+    if (this.whichImages === 1) {
+      cell.image = this.currentPlayer === 1 ? "assets/x-removebg-preview.png" : "assets/o-removebg-preview.png";
+    }
+    else {
+      cell.image = this.currentPlayer === 1 ? "assets/fasullo.jpg" : "assets/lallo.jpg";
+    }
     this.currentPlayer = cell.player === 1 ? 2 : 1;
-    cell.image = this.currentPlayer === 1 ? "assets/lallo.jpg" : "assets/fasullo.jpg";
-    console.log("ho cliccato:", cell);
-    console.log("il prossimo turno è di player:", this.currentPlayer);
-    this.isFinishedGame();
+    setTimeout(() => {
+      this.checkWinner();
+      this.isFinishedGame();
+    }, 250);
   }
 
   buildGameArea() {
@@ -121,7 +129,6 @@ export class AppComponent {
         image: ""
       };
       this.gamingTable.push(cell);
-      // console.log(this.gamingTable);
     }
   }
 }

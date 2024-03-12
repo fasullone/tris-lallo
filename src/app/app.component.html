@@ -1,11 +1,30 @@
 <div class="centra">
-  <div style="height: 45px;">
-    <h1 class="text" *ngIf="showText">
+  <div class="mb-3" *ngIf="showText">
+    <h1 class="text" style="font-size: 50px;">
       GIOCA A TRISLALLO
     </h1>
   </div>
 
-  <div class="container">
+  <div class="mb-5" *ngIf="!showText">
+    <h1 class="text mb-3">
+      PUNTEGGIO
+    </h1>
+    <div>
+      <h1 style="color: white;">
+        <span style="background-color: blueviolet; border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+          Player1
+        </span>
+        <span style="background-color: black;">
+          {{player1Score}} - {{player2Score}}
+        </span>
+        <span style="background-color: blueviolet; border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+          Player2
+        </span>
+      </h1>
+    </div>
+  </div>
+
+  <div *ngIf="!showText" class="container">
     <div class="board">
       <div *ngFor="let cell of gamingTable">
         <button class="cell" [disabled]="!isPlaying || cell.isClicked" (click)="makeMove(cell)">
@@ -15,32 +34,39 @@
     </div>
   </div>
 
-  <div *ngIf="showText" class="row">
+  <div *ngIf="showText" class="row mb-5">
     <div class="col-5"></div>
     <div class="list-group col-2">
+      <p class="text" style="font-size: 20px;">quali immagini desideri usare?</p>
       <li class="list-group-item">
-        <input class="form-check-input me-1" type="radio" name="listGroupRadio" [value]="1" [(ngModel)]="currentPlayer"
+        <input class="form-check-input me-1" type="radio" name="listGroupRadio" [value]="1" [(ngModel)]="whichImages"
           id="firstRadio" checked>
         <label class="form-check-label" for="firstRadio">
-          fasullo
-          <img class="image" src="assets/fasullo.jpg" alt="">
+          <img class="image" src="assets/x-removebg-preview.png" alt="">
+          <img class="image" src="assets/o-removebg-preview.png" alt="">
         </label>
       </li>
       <li class="list-group-item">
-        <input class="form-check-input me-1" type="radio" name="listGroupRadio" [value]="2" [(ngModel)]="currentPlayer"
+        <input class="form-check-input me-1" type="radio" name="listGroupRadio" [value]="2" [(ngModel)]="whichImages"
           id="secondRadio">
         <label class="form-check-label" for="secondRadio">
-          lallo
+          <img class="image" src="assets/fasullo.jpg" alt="">
           <img class="image" src="assets/lallo.jpg" alt="">
         </label>
       </li>
     </div>
   </div>
 
+
+  
   <div>
-    <button type="button" class="btn btn-primary playButton" *ngIf="showText" (click)="play()">Play</button>
-  </div>
-  <div>
-    <button type="button" class="btn btn-primary playButton" *ngIf="!showText" (click)="reset()">Reset</button>
+    <div *ngIf="showText" >
+      <button type="button" class="btn btn-primary playButton mb-3" style="margin-right: 10px;" (click)="play()">Play</button>
+      <button type="button" class="btn btn-primary playButton mb-3" (click)="resetScore()">Reset Score</button>
+    </div>
+    <div>
+      <button type="button" class="btn btn-primary playButton mb-3" *ngIf="!showText" (click)="resetMatch()">Reset</button>
+    </div>
+    
   </div>
 </div>
