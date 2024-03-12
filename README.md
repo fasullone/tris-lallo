@@ -27,5 +27,5 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
 
-## rebuildare il progetto e repusharlo
-mv docs/browser/* docs/ && rm -rf docs/browser/ && ng build && git add . && git commit -m "new release trislallo" && git push
+## rebuildare il progetto e repusharlo (copia e incolla al terminale e non c pnza)
+ng build && mv docs/browser/* docs/ && rm -rf docs/browser/ && git add . && git commit -m "new release trislallo" && git push
