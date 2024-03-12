@@ -1,5 +1,5 @@
 <div class="centra">
-  <div>
+  <div style="height: 45px;">
     <h1 class="text" *ngIf="showText">
       GIOCA A TRISLALLO
     </h1>
@@ -9,9 +9,9 @@
     <div class="board">
       <div *ngFor="let cell of gamingTable">
         <button class="cell" [disabled]="!isPlaying || cell.isClicked" (click)="makeMove(cell)">
-          <img [ngClass]="cell?.image ? 'image' : ''" [src]="cell?.image" alt="">
+          <img [ngClass]="cell?.image ? 'imageInGame' : ''" [src]="cell?.image" alt="">
         </button>
-      </div>  
+      </div>
     </div>
   </div>
 
@@ -19,16 +19,24 @@
     <div class="col-5"></div>
     <div class="list-group col-2">
       <li class="list-group-item">
-        <input class="form-check-input me-1" type="radio" name="listGroupRadio" [value]="1" [(ngModel)]="currentPlayer" id="firstRadio" checked>
-        <label class="form-check-label" for="firstRadio">Player 1</label>
+        <input class="form-check-input me-1" type="radio" name="listGroupRadio" [value]="1" [(ngModel)]="currentPlayer"
+          id="firstRadio" checked>
+        <label class="form-check-label" for="firstRadio">
+          P1
+          <img class="image" src="assets/fasullo.jpg" alt="">
+        </label>
       </li>
       <li class="list-group-item">
-        <input class="form-check-input me-1" type="radio" name="listGroupRadio" [value]="2" [(ngModel)]="currentPlayer" id="secondRadio">
-        <label class="form-check-label" for="secondRadio">Player 2</label>
+        <input class="form-check-input me-1" type="radio" name="listGroupRadio" [value]="2" [(ngModel)]="currentPlayer"
+          id="secondRadio">
+        <label class="form-check-label" for="secondRadio">
+          P2
+          <img class="image" src="assets/lallo.jpg" alt="">
+        </label>
       </li>
     </div>
   </div>
-  
+
   <div>
     <button type="button" class="btn btn-primary playButton" *ngIf="showText" (click)="play()">Play</button>
   </div>

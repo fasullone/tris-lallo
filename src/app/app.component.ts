@@ -39,10 +39,7 @@ export class AppComponent {
     this.buildGameArea();
   }
 
-  someoneWon() {
-    alert("ha vinto player: ");
-    this.reset();
-  }
+
 
   isFinishedGame() {
     const filtered = this.gamingTable.filter(x => !x.isClicked);
@@ -67,6 +64,9 @@ export class AppComponent {
     const win8 = [2, 4, 6];
     const player1Moves: number[] = [];
     const player2Moves: number[] = [];
+    let player1HasWon = false;
+    let player2HasWon = false;
+
     this.gamingTable.forEach(cell => {
       if (cell.player === 1 && cell.isClicked) {
         player1Moves.push(cell.index);
@@ -76,23 +76,27 @@ export class AppComponent {
         player2Moves.push(cell.index);
         console.log("player 2 moves ", player2Moves);
       }
- 
-      if(win1.every(n => player1Moves.includes(n)) || win2.every(n => player1Moves.includes(n)) ||
-      win3.every(n => player1Moves.includes(n)) || win4.every(n => player1Moves.includes(n)) ||
-      win5.every(n => player1Moves.includes(n)) || win6.every(n => player1Moves.includes(n)) ||
-      win7.every(n => player1Moves.includes(n)) || win8.every(n => player1Moves.includes(n))) {
+
+      if (win1.every(n => player1Moves.includes(n)) || win2.every(n => player1Moves.includes(n)) ||
+        win3.every(n => player1Moves.includes(n)) || win4.every(n => player1Moves.includes(n)) ||
+        win5.every(n => player1Moves.includes(n)) || win6.every(n => player1Moves.includes(n)) ||
+        win7.every(n => player1Moves.includes(n)) || win8.every(n => player1Moves.includes(n))) {
+        player1HasWon = true;
         this.reset();
-        alert('ha vinto player 1');
       }
- 
-      if(win1.every(n => player2Moves.includes(n)) || win2.every(n => player2Moves.includes(n)) ||
-      win3.every(n => player2Moves.includes(n)) || win4.every(n => player2Moves.includes(n)) ||
-      win5.every(n => player2Moves.includes(n)) || win6.every(n => player2Moves.includes(n)) ||
-      win7.every(n => player2Moves.includes(n)) || win8.every(n => player2Moves.includes(n))) {
+
+      if (win1.every(n => player2Moves.includes(n)) || win2.every(n => player2Moves.includes(n)) ||
+        win3.every(n => player2Moves.includes(n)) || win4.every(n => player2Moves.includes(n)) ||
+        win5.every(n => player2Moves.includes(n)) || win6.every(n => player2Moves.includes(n)) ||
+        win7.every(n => player2Moves.includes(n)) || win8.every(n => player2Moves.includes(n))) {
+        player2HasWon = true;
         this.reset();
-        alert('ha vinto player 2');
       }
     });
+
+    if (player1HasWon || player2HasWon) {
+      alert(`Player ${player1HasWon ? "1" : "2"} ha vinto!`);
+    }
   }
 
   makeMove(cell: Cell) {
