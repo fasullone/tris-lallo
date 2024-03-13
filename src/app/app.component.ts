@@ -45,7 +45,7 @@ export class AppComponent {
     this.buildGameArea();
   }
 
-  resetRound(){
+  resetBoard(){
     this.currentPlayer = 1;
     this.buildGameArea();
   }
@@ -60,7 +60,7 @@ export class AppComponent {
     const filtered = this.gamingTable.filter(x => !x.isClicked);
     if (filtered.length === 0) {
       alert("PAREGGIO!")
-      this.resetRound();
+      this.resetBoard();
       this.roundsNumber++;
     }
   }
@@ -92,7 +92,7 @@ export class AppComponent {
         win5.every(n => player1Moves.includes(n)) || win6.every(n => player1Moves.includes(n)) ||
         win7.every(n => player1Moves.includes(n)) || win8.every(n => player1Moves.includes(n))) {
         player1HasWon = true;
-        this.resetRound();
+        this.resetBoard();
       }
 
       if (win1.every(n => player2Moves.includes(n)) || win2.every(n => player2Moves.includes(n)) ||
@@ -100,7 +100,7 @@ export class AppComponent {
         win5.every(n => player2Moves.includes(n)) || win6.every(n => player2Moves.includes(n)) ||
         win7.every(n => player2Moves.includes(n)) || win8.every(n => player2Moves.includes(n))) {
         player2HasWon = true;
-        this.resetRound();
+        this.resetBoard();
       }
     });
 
