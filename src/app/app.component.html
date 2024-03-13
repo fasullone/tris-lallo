@@ -1,30 +1,45 @@
 <div class="centra">
-  <div class="mb-3" *ngIf="showText">
+  <div class="mb-5" *ngIf="showText">
     <h1 class="text" style="font-size: 50px;">
       GIOCA A TRISLALLO
     </h1>
   </div>
 
-  <div class="mb-5" *ngIf="!showText">
-    <h1 class="text mb-3">
-      PUNTEGGIO
-    </h1>
-    <div>
-      <h1 style="color: white;">
-        <span style="background-color: blueviolet; border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
-          Player1
-        </span>
-        <span style="background-color: black;">
-          {{player1Score}} - {{player2Score}}
-        </span>
-        <span style="background-color: blueviolet; border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
-          Player2
-        </span>
+  <div class="mb-3 row" *ngIf="!showText">
+    <div class="col-6">
+      <h1 class="text mb-3">
+        PUNTEGGIO
       </h1>
+      <div>
+        <h1 style="color: white;">
+          <span style="background-color: blueviolet; border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+            {{player1Name}}
+          </span>
+          <span style="background-color: black;">
+            {{player1Score}} - {{player2Score}}
+          </span>
+          <span style="background-color: blueviolet; border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+            {{player2Name}}
+          </span>
+        </h1>
+      </div>
+    </div>
+
+    <div class="col-2"></div>
+
+    <div class="col-2" style="text-align: center;">
+      <h1 class="text mb-3">
+        ROUND
+      </h1>
+      <div class="rounds">
+        <h1>
+          {{roundsNumber}}
+        </h1>
+      </div>
     </div>
   </div>
 
-  <div *ngIf="!showText" class="container">
+  <div *ngIf="!showText" class="container mb-3">
     <div class="board">
       <div *ngFor="let cell of gamingTable">
         <button class="cell" [disabled]="!isPlaying || cell.isClicked" (click)="makeMove(cell)">
@@ -57,16 +72,32 @@
     </div>
   </div>
 
-
+  <div class="row">
+    <div class="col-4"></div>
+    <div *ngIf="showText" class="mb-3 col-4">
+      <div class="mb-2">
+        <label for="inputPassword5" class="form-label text">Player1 name:</label>
+        <input type="email" id="inputPassword5" class="form-control" [(ngModel)]="player1Name">
+      </div>
+    
+      <div>
+        <label for="inputPassword5" class="form-label text" style="color: blueviolet;">Player2 name:</label>
+        <input type="email" id="inputPassword5" class="form-control" [(ngModel)]="player2Name">
+      </div>
+    </div>  
+  </div>
   
   <div>
-    <div *ngIf="showText" >
-      <button type="button" class="btn btn-primary playButton mb-3" style="margin-right: 10px;" (click)="play()">Play</button>
-      <button type="button" class="btn btn-primary playButton mb-3" (click)="resetScore()">Reset Score</button>
+    <div *ngIf="showText">
+      <button type="button" class="btn btn-primary playButton mb-3" (click)="play()">Play</button>
     </div>
-    <div>
-      <button type="button" class="btn btn-primary playButton mb-3" *ngIf="!showText" (click)="resetMatch()">Reset</button>
+    <div *ngIf="!showText">
+      <button type="button" class="btn btn-primary playButton mb-3" style="margin-right: 10px;"
+        (click)="resetRound()">Reset Round</button>
+      <button type="button" class="btn btn-primary playButton mb-3" style="margin-right: 10px;"
+        (click)="resetScore()">Reset Score</button>
+      <button type="button" class="btn btn-primary playButton mb-3" style="margin-right: 10px;"
+        (click)="resetMatch()">Reset Match</button>
     </div>
-    
   </div>
 </div>

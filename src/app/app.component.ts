@@ -22,6 +22,9 @@ export class AppComponent {
   whichImages: number = 1;
   player1Score: number = 0;
   player2Score: number = 0;
+  roundsNumber: number = 0;
+  player1Name: string = "Player1";
+  player2Name: string = "Player2";
   gamingTable: Cell[] = [];
 
   ngOnInit() {
@@ -37,19 +40,28 @@ export class AppComponent {
     this.showText = true;
     this.isPlaying = false;
     this.currentPlayer = 1;
+    this.roundsNumber = 0;
+    this.resetScore();
+    this.buildGameArea();
+  }
+
+  resetRound(){
+    this.currentPlayer = 1;
     this.buildGameArea();
   }
 
   resetScore() {
     this.player1Score = 0;
     this.player2Score = 0;
-  }
+    this.roundsNumber = 0;
+  } 
 
   isFinishedGame() {
     const filtered = this.gamingTable.filter(x => !x.isClicked);
     if (filtered.length === 0) {
       alert("PAREGGIO!")
-      this.resetMatch();
+      this.resetRound();
+      this.roundsNumber++;
     }
   }
 
@@ -80,7 +92,7 @@ export class AppComponent {
         win5.every(n => player1Moves.includes(n)) || win6.every(n => player1Moves.includes(n)) ||
         win7.every(n => player1Moves.includes(n)) || win8.every(n => player1Moves.includes(n))) {
         player1HasWon = true;
-        this.resetMatch();
+        this.resetRound();
       }
 
       if (win1.every(n => player2Moves.includes(n)) || win2.every(n => player2Moves.includes(n)) ||
@@ -88,18 +100,20 @@ export class AppComponent {
         win5.every(n => player2Moves.includes(n)) || win6.every(n => player2Moves.includes(n)) ||
         win7.every(n => player2Moves.includes(n)) || win8.every(n => player2Moves.includes(n))) {
         player2HasWon = true;
-        this.resetMatch();
+        this.resetRound();
       }
     });
 
     if (player1HasWon || player2HasWon) {
       if (player1HasWon) {
         this.player1Score++;
+        this.roundsNumber++;
       }
       if (player2HasWon) {
         this.player2Score++;
+        this.roundsNumber++;
       }
-      alert(` ${player1HasWon ? "Player 1" : "Player 2"} ha vinto!`);
+      alert(` ${player1HasWon ? this.player1Name : this.player2Name} ha vinto!`);
     }
   }
 
