@@ -104,17 +104,16 @@ export class AppComponent {
       }
     });
 
-    if (player1HasWon || player2HasWon) {
       if (player1HasWon) {
         this.player1Score++;
         this.roundsNumber++;
+        alert(` ${this.player1Name} ha vinto `)
       }
       if (player2HasWon) {
         this.player2Score++;
         this.roundsNumber++;
+        alert(` ${this.player2Name} ha vinto `)
       }
-      alert(` ${player1HasWon ? this.player1Name : this.player2Name} ha vinto!`);
-    }
   }
 
   makeMove(cell: Cell) {
