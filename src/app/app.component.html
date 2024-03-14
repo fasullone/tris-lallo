@@ -6,7 +6,7 @@
   </div>
 
   <div class="mb-3 row" *ngIf="!showText">
-    <div class="col-6">
+    <div class="col-4">
       <h1 class="text mb-3">
         PUNTEGGIO
       </h1>
@@ -25,7 +25,16 @@
       </div>
     </div>
 
-    <div class="col-2"></div>
+    <div class="col-4">
+      <h1 class="text" style="font-weight: bold;">
+        TOCCA A:
+      </h1>
+      <h1 class="text">
+        {{currentPlayerAsString}}
+      </h1>        
+    </div>
+
+    <div class="col-1"></div>
 
     <div class="col-2" style="text-align: center;">
       <h1 class="text mb-3">
@@ -37,6 +46,9 @@
         </h1>
       </div>
     </div>
+
+    
+
   </div>
 
   <div *ngIf="!showText" class="container mb-3">

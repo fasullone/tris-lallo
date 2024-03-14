@@ -18,20 +18,27 @@ export class AppComponent {
   title = 'tris-lallo';
   showText: boolean = true;
   isPlaying: boolean = false;
+  player1Name: string = "Player1";
+  player2Name: string = "Player2";
   currentPlayer: number = 1;
+  currentPlayerAsString: string = "";
   whichImages: number = 1;
   player1Score: number = 0;
   player2Score: number = 0;
   roundsNumber: number = 0;
-  player1Name: string = "Player1";
-  player2Name: string = "Player2";
   gamingTable: Cell[] = [];
+
+  constructor(){
+
+  }
+
 
   ngOnInit() {
     this.buildGameArea();
   }
 
   play() {
+    this.currentPlayerAsString = this.player1Name;
     this.showText = false;
     this.isPlaying = true;
   }
@@ -40,6 +47,7 @@ export class AppComponent {
     this.showText = true;
     this.isPlaying = false;
     this.currentPlayer = 1;
+    this.currentPlayerAsString = this.player1Name;
     this.roundsNumber = 0;
     this.resetScore();
     this.buildGameArea();
@@ -47,6 +55,7 @@ export class AppComponent {
 
   resetBoard(){
     this.currentPlayer = 1;
+    this.currentPlayerAsString = this.player1Name;
     this.buildGameArea();
   }
 
@@ -119,6 +128,7 @@ export class AppComponent {
   makeMove(cell: Cell) {
     cell.isClicked = true;
     cell.player = this.currentPlayer;
+    this.currentPlayerAsString = this.currentPlayerAsString === this.player1Name ? this.player2Name : this.player1Name;
     if (this.whichImages === 1) {
       cell.image = this.currentPlayer === 1 ? "assets/x-removebg-preview.png" : "assets/o-removebg-preview.png";
     }
